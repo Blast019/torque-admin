@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo — Torque</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Configuração do Supabase (mesmo projeto do Torque) -->
+<script src="config.js"></script>
+
+<div id="loginScreen" class="tela tela-central">
+  <div class="cartao cartao-login">
+    <h1>Painel Administrativo</h1>
+    <p class="subtitulo">Acesso restrito a administradores da plataforma Torque.</p>
+    <form id="loginForm">
+      <label for="loginEmail">E-mail</label>
+      <input id="loginEmail" type="email" autocomplete="username" required>
+      <label for="loginSenha">Senha</label>
+      <input id="loginSenha" type="password" autocomplete="current-password" required>
+      <p id="loginError" class="mensagem-erro hidden"></p>
+      <button id="loginSubmitBtn" type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<div id="verificandoScreen" class="tela tela-central hidden">
+  <div class="cartao">
+    <p>Verificando permissões…</p>
+  </div>
+</div>
+
+<div id="bloqueadoScreen" class="tela tela-central hidden">
+  <div class="cartao">
+    <h1>Acesso restrito</h1>
+    <p>Esta conta não é administrador ativo da plataforma Torque.</p>
+    <p class="texto-secundario">Este painel não faz parte do sistema usado pelas empresas clientes. Se você é cliente da Torque, acesse <strong>torque.tec.br</strong> normalmente.</p>
+    <button id="bloqueadoLogoutBtn" type="button" class="btn">Sair</button>
+  </div>
+</div>
+
+<div id="dashboardScreen" class="tela hidden">
+  <header class="cabecalho">
+    <h1>Painel Administrativo — Torque</h1>
+    <div class="cabecalho-usuario">
+      <span id="adminEmailLabel" class="texto-secundario"></span>
+      <button id="logoutBtn" type="button" class="btn">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <div class="aviso-envio-manual">
+      Autorizar aqui <strong>não envia</strong> nenhum e-mail. Depois de autorizar, envie o convite manualmente pelo Supabase (Authentication → Invite user), usando o mesmo e-mail. O envio automático fica para uma etapa futura (Incremento 2.3).
+    </div>
+
+    <section class="cartao">
+      <h2>Autorizar / renovar acesso por e-mail</h2>
+      <form id="autorizarForm" class="form-linha">
+        <div class="campo">
+          <label for="autorizarEmail">E-mail a autorizar</label>
+          <input id="autorizarEmail" type="email" required placeholder="pessoa@exemplo.com">
+        </div>
+        <button id="autorizarSubmitBtn" type="submit" class="btn btn-primary">Autorizar por 72 horas</button>
+      </form>
+      <p id="autorizarMensagem" class="mensagem hidden"></p>
+    </section>
+
+    <section class="cartao">
+      <div class="secao-titulo-filtros">
+        <h2>Autorizações de onboarding</h2>
+        <div id="filtros" class="filtros" role="group" aria-label="Filtrar por situação">
+          <button type="button" class="filtro-btn" data-filtro="pendente">Pendente</button>
+          <button type="button" class="filtro-btn" data-filtro="consumida">Consumida</button>
+          <button type="button" class="filtro-btn" data-filtro="expirada">Expirada</button>
+          <button type="button" class="filtro-btn" data-filtro="revogada">Revogada</button>
+          <button type="button" class="filtro-btn" data-filtro="todas">Todas</button>
+        </div>
+      </div>
+
+      <p id="acaoMensagem" class="mensagem hidden"></p>
+      <p id="listaCarregando" class="texto-secundario hidden">Carregando…</p>
+      <p id="listaErro" class="mensagem-erro hidden"></p>
+      <p id="listaVazia" class="texto-secundario hidden">Nenhuma autorização encontrada para este filtro.</p>
+
+      <div class="tabela-scroll">
+        <table id="listaTabela" class="tabela hidden">
+          <thead>
+            <tr>
+              <th>E-mail</th>
+              <th>Situação</th>
+              <th>Autorizado em</th>
+              <th>Expira em</th>
+              <th>Consumido em</th>
+              <th>Revogado em</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="listaTabelaBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
