@@ -151,21 +151,24 @@ async function carregarLista(filtro){
   tabelaEl.classList.add('hidden');
 
   try{
-    // 'pendente' usa p_apenas_pendentes=true (já filtra por consumido_em/
-    // revogado_em/expira_em no banco - nunca reimplementado aqui). Os
-    // demais filtros (consumida, expirada, revogada, todas) precisam do
-    // histórico completo (false) - a filtragem por 'situacao' já vem
-    // calculada pela RPC, só é aplicada aqui no cliente.
-    const apenasPendentes = filtro === 'pendente';
+    // Sempre busca o histórico completo (p_apenas_pendentes=false) - os
+    // indicadores (Pendentes/Consumidas/Expiradas/Revogadas) são calculados
+    // a partir deste MESMO retorno, sem nenhuma RPC adicional. Filtrar
+    // 'pendente' aqui por situacao === 'pendente' é equivalente ao que a
+    // RPC faria com p_apenas_pendentes=true (mesma condição: consumido_em e
+    // revogado_em nulos e expira_em > now()), então não há necessidade de
+    // uma segunda chamada só para esse filtro.
     const { data, error } = await sb.rpc('admin_listar_autorizacoes_onboarding', {
-      p_apenas_pendentes: apenasPendentes
+      p_apenas_pendentes: false
     });
     if(error) throw error;
 
-    let linhas = Array.isArray(data) ? data : [];
-    if(filtro !== 'pendente' && filtro !== 'todas'){
-      linhas = linhas.filter(linha => linha.situacao === filtro);
-    }
+    const todasAsLinhas = Array.isArray(data) ? data : [];
+    atualizarIndicadores(todasAsLinhas);
+
+    const linhas = filtro === 'todas'
+      ? todasAsLinhas
+      : todasAsLinhas.filter(linha => linha.situacao === filtro);
 
     if(linhas.length === 0){
       vaziaEl.classList.remove('hidden');
@@ -190,6 +193,20 @@ const SITUACAO_LABEL = {
   revogada: 'Revogada'
 };
 
+// Indicadores compactos - calculados aqui a partir do MESMO array já
+// retornado por admin_listar_autorizacoes_onboarding (histórico completo),
+// nunca por uma RPC própria e nunca a partir de dado operacional de empresa.
+function atualizarIndicadores(linhas){
+  const contagem = { pendente: 0, consumida: 0, expirada: 0, revogada: 0 };
+  linhas.forEach(linha=>{
+    if(contagem.hasOwnProperty(linha.situacao)) contagem[linha.situacao]++;
+  });
+  document.getElementById('statPendentes').textContent = contagem.pendente;
+  document.getElementById('statConsumidas').textContent = contagem.consumida;
+  document.getElementById('statExpiradas').textContent = contagem.expirada;
+  document.getElementById('statRevogadas').textContent = contagem.revogada;
+}
+
 function renderizarTabela(linhas){
   const corpo = document.getElementById('listaTabelaBody');
   corpo.replaceChildren();
@@ -198,10 +215,13 @@ function renderizarTabela(linhas){
     const tr = document.createElement('tr');
 
     const tdEmail = document.createElement('td');
+    tdEmail.className = 'col-email-valor';
+    tdEmail.dataset.label = 'E-mail';
     tdEmail.textContent = linha.email;
     tr.appendChild(tdEmail);
 
     const tdSituacao = document.createElement('td');
+    tdSituacao.dataset.label = 'Situação';
     const badge = document.createElement('span');
     badge.className = 'situacao-badge situacao-' + linha.situacao;
     badge.textContent = SITUACAO_LABEL[linha.situacao] || linha.situacao;
@@ -209,26 +229,36 @@ function renderizarTabela(linhas){
     tr.appendChild(tdSituacao);
 
     const tdAutorizado = document.createElement('td');
+    tdAutorizado.className = 'col-data-valor';
+    tdAutorizado.dataset.label = 'Autorizado';
     tdAutorizado.textContent = formatarDataHora(linha.autorizado_em);
     tr.appendChild(tdAutorizado);
 
     const tdExpira = document.createElement('td');
+    tdExpira.className = 'col-data-valor';
+    tdExpira.dataset.label = 'Expira';
     tdExpira.textContent = formatarDataHora(linha.expira_em);
     tr.appendChild(tdExpira);
 
     const tdConsumido = document.createElement('td');
+    tdConsumido.className = 'col-data-valor';
+    tdConsumido.dataset.label = 'Consumido';
     tdConsumido.textContent = formatarDataHora(linha.consumido_em);
     tr.appendChild(tdConsumido);
 
     const tdRevogado = document.createElement('td');
+    tdRevogado.className = 'col-data-valor';
+    tdRevogado.dataset.label = 'Revogado';
     tdRevogado.textContent = formatarDataHora(linha.revogado_em);
     tr.appendChild(tdRevogado);
 
     const tdAcao = document.createElement('td');
+    tdAcao.className = 'col-acao-valor';
+    tdAcao.dataset.label = 'Ação';
     if(linha.situacao === 'pendente'){
       const btnRevogar = document.createElement('button');
       btnRevogar.type = 'button';
-      btnRevogar.className = 'btn btn-perigo';
+      btnRevogar.className = 'btn btn-perigo btn-sm';
       btnRevogar.textContent = 'Revogar';
       btnRevogar.dataset.id = linha.id;
       btnRevogar.dataset.email = linha.email;

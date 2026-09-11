@@ -13,96 +13,151 @@
 <script src="config.js"></script>
 
 <div id="loginScreen" class="tela tela-central">
-  <div class="cartao cartao-login">
-    <h1>Painel Administrativo</h1>
-    <p class="subtitulo">Acesso restrito a administradores da plataforma Torque.</p>
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">T</div>
+      <div><div class="brand-name">Torque.Tec</div><div class="brand-sub">Painel Administrativo</div></div>
+    </div>
+    <h1>Entrar</h1>
+    <p class="sub">Acesso restrito a administradores da plataforma.</p>
     <form id="loginForm">
-      <label for="loginEmail">E-mail</label>
-      <input id="loginEmail" type="email" autocomplete="username" required>
-      <label for="loginSenha">Senha</label>
-      <input id="loginSenha" type="password" autocomplete="current-password" required>
+      <div class="field">
+        <label for="loginEmail">E-mail</label>
+        <input id="loginEmail" type="email" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="loginSenha">Senha</label>
+        <input id="loginSenha" type="password" autocomplete="current-password" required>
+      </div>
       <p id="loginError" class="mensagem-erro hidden"></p>
-      <button id="loginSubmitBtn" type="submit" class="btn btn-primary">Entrar</button>
+      <button id="loginSubmitBtn" type="submit" class="btn btn-primary btn-block">Entrar</button>
     </form>
   </div>
 </div>
 
 <div id="verificandoScreen" class="tela tela-central hidden">
-  <div class="cartao">
-    <p>Verificando permissões…</p>
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">T</div>
+      <div><div class="brand-name">Torque.Tec</div><div class="brand-sub">Painel Administrativo</div></div>
+    </div>
+    <p class="texto-secundario">Verificando permissões…</p>
   </div>
 </div>
 
 <div id="bloqueadoScreen" class="tela tela-central hidden">
-  <div class="cartao">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">T</div>
+      <div><div class="brand-name">Torque.Tec</div><div class="brand-sub">Painel Administrativo</div></div>
+    </div>
     <h1>Acesso restrito</h1>
-    <p>Esta conta não é administrador ativo da plataforma Torque.</p>
+    <p class="sub">Esta conta não é administrador ativo da plataforma Torque.</p>
     <p class="texto-secundario">Este painel não faz parte do sistema usado pelas empresas clientes. Se você é cliente da Torque, acesse <strong>torque.tec.br</strong> normalmente.</p>
-    <button id="bloqueadoLogoutBtn" type="button" class="btn">Sair</button>
+    <button id="bloqueadoLogoutBtn" type="button" class="btn btn-block" style="margin-top:12px;">Sair</button>
   </div>
 </div>
 
 <div id="dashboardScreen" class="tela hidden">
-  <header class="cabecalho">
-    <h1>Painel Administrativo — Torque</h1>
-    <div class="cabecalho-usuario">
-      <span id="adminEmailLabel" class="texto-secundario"></span>
-      <button id="logoutBtn" type="button" class="btn">Sair</button>
-    </div>
-  </header>
-
-  <main class="conteudo">
-    <div class="aviso-envio-manual">
-      Autorizar aqui <strong>não envia</strong> nenhum e-mail. Depois de autorizar, envie o convite manualmente pelo Supabase (Authentication → Invite user), usando o mesmo e-mail. O envio automático fica para uma etapa futura (Incremento 2.3).
-    </div>
-
-    <section class="cartao">
-      <h2>Autorizar / renovar acesso por e-mail</h2>
-      <form id="autorizarForm" class="form-linha">
-        <div class="campo">
-          <label for="autorizarEmail">E-mail a autorizar</label>
-          <input id="autorizarEmail" type="email" required placeholder="pessoa@exemplo.com">
-        </div>
-        <button id="autorizarSubmitBtn" type="submit" class="btn btn-primary">Autorizar por 72 horas</button>
-      </form>
-      <p id="autorizarMensagem" class="mensagem hidden"></p>
-    </section>
-
-    <section class="cartao">
-      <div class="secao-titulo-filtros">
-        <h2>Autorizações de onboarding</h2>
-        <div id="filtros" class="filtros" role="group" aria-label="Filtrar por situação">
-          <button type="button" class="filtro-btn" data-filtro="pendente">Pendente</button>
-          <button type="button" class="filtro-btn" data-filtro="consumida">Consumida</button>
-          <button type="button" class="filtro-btn" data-filtro="expirada">Expirada</button>
-          <button type="button" class="filtro-btn" data-filtro="revogada">Revogada</button>
-          <button type="button" class="filtro-btn" data-filtro="todas">Todas</button>
-        </div>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="auth-brand">
+        <div class="brand-mark">T</div>
+        <div><div class="brand-name">Torque.Tec</div><div class="brand-sub">Painel Administrativo</div></div>
       </div>
-
-      <p id="acaoMensagem" class="mensagem hidden"></p>
-      <p id="listaCarregando" class="texto-secundario hidden">Carregando…</p>
-      <p id="listaErro" class="mensagem-erro hidden"></p>
-      <p id="listaVazia" class="texto-secundario hidden">Nenhuma autorização encontrada para este filtro.</p>
-
-      <div class="tabela-scroll">
-        <table id="listaTabela" class="tabela hidden">
-          <thead>
-            <tr>
-              <th>E-mail</th>
-              <th>Situação</th>
-              <th>Autorizado em</th>
-              <th>Expira em</th>
-              <th>Consumido em</th>
-              <th>Revogado em</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody id="listaTabelaBody"></tbody>
-        </table>
+      <div class="app-header-usuario">
+        <span id="adminEmailLabel" class="texto-secundario"></span>
+        <button id="logoutBtn" type="button" class="btn btn-sm">Sair</button>
       </div>
-    </section>
-  </main>
+    </header>
+
+    <div class="app-body">
+      <nav class="sidebar" aria-label="Navegação do painel">
+        <button type="button" class="nav-item active"><span class="nav-icon">✉</span><span class="nav-label">Onboarding</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">◈</span><span class="nav-label">Visão geral</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">🏢</span><span class="nav-label">Empresas</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">📦</span><span class="nav-label">Planos</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">💳</span><span class="nav-label">Assinaturas</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">📢</span><span class="nav-label">Avisos</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" disabled><span class="nav-icon">🛠</span><span class="nav-label">Administração</span><span class="nav-badge">Em breve</span></button>
+      </nav>
+
+      <main class="main-content">
+        <div class="main-content-inner">
+          <div class="topbar">
+            <h1>Onboarding</h1>
+            <p>Autorizações de acesso para criação de empresas</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card stat-pendente"><div><div class="stat-num" id="statPendentes">—</div><div class="stat-label">Pendentes</div></div><div class="stat-icon">⏳</div></div>
+            <div class="stat-card stat-consumida"><div><div class="stat-num" id="statConsumidas">—</div><div class="stat-label">Consumidas</div></div><div class="stat-icon">✔</div></div>
+            <div class="stat-card stat-expirada"><div><div class="stat-num" id="statExpiradas">—</div><div class="stat-label">Expiradas</div></div><div class="stat-icon">◔</div></div>
+            <div class="stat-card stat-revogada"><div><div class="stat-num" id="statRevogadas">—</div><div class="stat-label">Revogadas</div></div><div class="stat-icon">⊘</div></div>
+          </div>
+
+          <section class="painel-secao">
+            <div class="secao-cabecalho">
+              <h2>Autorizar / renovar acesso por e-mail</h2>
+            </div>
+            <form id="autorizarForm" class="form-linha">
+              <div class="campo">
+                <label for="autorizarEmail">E-mail a autorizar</label>
+                <input id="autorizarEmail" type="email" required placeholder="pessoa@exemplo.com">
+              </div>
+              <button id="autorizarSubmitBtn" type="submit" class="btn btn-primary">Autorizar por 72 horas</button>
+            </form>
+            <p id="autorizarMensagem" class="mensagem hidden"></p>
+            <p class="aviso-discreto">ℹ Autorizar aqui não envia nenhum e-mail. Depois de autorizar, envie o convite manualmente pelo Supabase (Authentication → Invite user), usando o mesmo e-mail. Envio automático fica para o Incremento 2.3.</p>
+          </section>
+
+          <section class="painel-secao">
+            <div class="secao-cabecalho">
+              <h2>Autorizações de onboarding</h2>
+              <div id="filtros" class="filtros" role="group" aria-label="Filtrar por situação">
+                <button type="button" class="filtro-btn" data-filtro="pendente">Pendente</button>
+                <button type="button" class="filtro-btn" data-filtro="consumida">Consumida</button>
+                <button type="button" class="filtro-btn" data-filtro="expirada">Expirada</button>
+                <button type="button" class="filtro-btn" data-filtro="revogada">Revogada</button>
+                <button type="button" class="filtro-btn" data-filtro="todas">Todas</button>
+              </div>
+            </div>
+
+            <p id="acaoMensagem" class="mensagem hidden"></p>
+            <p id="listaCarregando" class="texto-secundario hidden">Carregando…</p>
+            <p id="listaErro" class="mensagem-erro hidden"></p>
+            <p id="listaVazia" class="texto-secundario hidden">Nenhuma autorização encontrada para este filtro.</p>
+
+            <div class="tabela-scroll">
+              <table id="listaTabela" class="tabela hidden">
+                <colgroup>
+                  <col class="col-email">
+                  <col class="col-situacao">
+                  <col class="col-data">
+                  <col class="col-data">
+                  <col class="col-data">
+                  <col class="col-data">
+                  <col class="col-acao">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>E-mail</th>
+                    <th>Situação</th>
+                    <th>Autorizado</th>
+                    <th>Expira</th>
+                    <th>Consumido</th>
+                    <th>Revogado</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="listaTabelaBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
