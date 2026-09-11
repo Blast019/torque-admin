@@ -50,8 +50,20 @@ input,select{ font-family:inherit; }
 .app-shell{ min-height:100vh; display:flex; flex-direction:column; }
 
 .app-header{ flex-shrink:0; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 20px; height:58px; background:var(--surface); border-bottom:1px solid var(--border); }
-.app-header .auth-brand{ margin-bottom:0; }
-.app-header-usuario{ display:flex; align-items:center; gap:14px; }
+/* A marca ("Torque.Tec") nunca encolhe - e curta, sem ponto de quebra, e
+   nao precisa ceder espaco. Dar min-width:0 a ela (sem tambem dar aos seus
+   textos internos) so faria o texto vazar da propria caixa e se sobrepor
+   ao e-mail ao lado - por isso flex-shrink:0 aqui, nunca min-width:0. */
+.app-header .auth-brand{ margin-bottom:0; flex-shrink:0; }
+.app-header-usuario{ display:flex; align-items:center; gap:14px; min-width:0; flex-shrink:1; }
+/* Sem min-width:0 aqui, um item flex nunca encolhe abaixo da largura
+   intrinseca do texto do e-mail (que nao tem quebra) - com um e-mail real
+   longo, isso empurrava #logoutBtn para fora da viewport em telas estreitas
+   (defeito real encontrado apos a publicacao). O e-mail agora
+   encolhe e trunca com reticencias quando faltar espaco; o botao nunca
+   encolhe nem quebra. */
+#adminEmailLabel{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#logoutBtn{ flex-shrink:0; }
 
 .app-body{ flex:1; display:flex; min-height:0; }
 
