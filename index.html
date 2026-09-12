@@ -66,94 +66,322 @@
         <div><div class="brand-name">Torque.Tec</div><div class="brand-sub">Painel Administrativo</div></div>
       </div>
       <div class="app-header-usuario">
-        <span id="adminEmailLabel" class="texto-secundario"></span>
-        <button id="logoutBtn" type="button" class="btn btn-sm">Sair</button>
+        <div class="usuario-info">
+          <span id="adminAvatar" class="avatar-circulo"></span>
+          <span id="adminEmailLabel" class="texto-secundario email-truncado"></span>
+          <svg class="chevron-usuario" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <button id="logoutBtn" type="button" class="btn btn-sm btn-contorno-laranja">Sair</button>
       </div>
     </header>
 
     <div class="app-body">
       <nav class="sidebar" aria-label="Navegação do painel">
-        <button type="button" class="nav-item active"><span class="nav-icon">✉</span><span class="nav-label">Onboarding</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">◈</span><span class="nav-label">Visão geral</span><span class="nav-badge">Em breve</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">🏢</span><span class="nav-label">Empresas</span><span class="nav-badge">Em breve</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">📦</span><span class="nav-label">Planos</span><span class="nav-badge">Em breve</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">💳</span><span class="nav-label">Assinaturas</span><span class="nav-badge">Em breve</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">📢</span><span class="nav-label">Avisos</span><span class="nav-badge">Em breve</span></button>
-        <button type="button" class="nav-item" disabled><span class="nav-icon">🛠</span><span class="nav-label">Administração</span><span class="nav-badge">Em breve</span></button>
+        <button type="button" class="nav-item" data-view="viewVisaoGeral">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20V14"/></svg></span>
+          <span class="nav-label">Visão geral</span>
+        </button>
+        <button type="button" class="nav-item" data-view="viewOnboarding">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.5l2 2 4.5-4.5"/><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/></svg></span>
+          <span class="nav-label">Autorizações</span>
+        </button>
+        <button type="button" class="nav-item" disabled>
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M5 9v10h14V9"/><path d="M10 19v-5h4v5"/></svg></span>
+          <span class="nav-label">Empresas</span>
+          <span class="nav-badge">Em breve</span>
+        </button>
+        <button type="button" class="nav-item" disabled>
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+          <span class="nav-label">Planos</span>
+          <span class="nav-badge">Em breve</span>
+        </button>
+        <button type="button" class="nav-item" disabled>
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10.5h19"/><path d="M6 15h4"/></svg></span>
+          <span class="nav-label">Assinaturas</span>
+          <span class="nav-badge">Em breve</span>
+        </button>
+        <button type="button" class="nav-item" disabled>
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+          <span class="nav-label">Avisos</span>
+          <span class="nav-badge">Em breve</span>
+        </button>
+        <button type="button" class="nav-item" disabled>
+          <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.97 7.97 0 0 0 0-2l2-1.2-2-3.4-2.3.9a8 8 0 0 0-1.7-1L15 3h-4l-.4 2.3a8 8 0 0 0-1.7 1l-2.3-.9-2 3.4L6.6 11a7.97 7.97 0 0 0 0 2l-2 1.2 2 3.4 2.3-.9a8 8 0 0 0 1.7 1L11 21h4l.4-2.3a8 8 0 0 0 1.7-1l2.3.9 2-3.4-2-1.2z"/></svg></span>
+          <span class="nav-label">Administração</span>
+          <span class="nav-badge">Em breve</span>
+        </button>
       </nav>
 
       <main class="main-content">
         <div class="main-content-inner">
-          <div class="topbar">
-            <h1>Onboarding</h1>
-            <p>Autorizações de acesso para criação de empresas</p>
+
+          <div id="viewVisaoGeral" class="view">
+            <div class="topbar">
+              <h1>Visão geral</h1>
+              <p>Indicadores administrativos agregados da plataforma</p>
+            </div>
+
+            <p id="vgCarregando" class="texto-secundario hidden">Carregando indicadores…</p>
+
+            <div id="vgErro" class="painel-secao hidden">
+              <p id="vgErroTexto" class="mensagem-erro"></p>
+              <button type="button" id="vgTentarNovamenteBtn" class="btn btn-sm">Tentar novamente</button>
+            </div>
+
+            <p id="vgVazia" class="texto-secundario hidden">Nenhuma empresa cadastrada ainda.</p>
+
+            <div id="vgConteudo" class="hidden">
+              <div class="stats-grid">
+                <div class="stat-card-novo stat-cor-neutra">
+                  <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M5 9v10h14V9"/><path d="M10 19v-5h4v5"/></svg></div>
+                  <div class="stat-corpo">
+                    <div class="stat-num" id="vgStatTotalEmpresas">—</div>
+                    <div class="stat-label">Total de empresas</div>
+                    <div class="stat-desc">Empresas cadastradas na plataforma</div>
+                  </div>
+                </div>
+                <div class="stat-card-novo stat-cor-laranja">
+                  <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg></div>
+                  <div class="stat-corpo">
+                    <div class="stat-num" id="vgStatNovasNoMes">—</div>
+                    <div class="stat-label">Novas empresas no mês</div>
+                    <div class="stat-desc">Cadastros no mês atual</div>
+                  </div>
+                </div>
+                <div class="stat-card-novo stat-cor-verde">
+                  <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9.5" r="2.5"/><path d="M15 20a5.5 5.5 0 0 1 8-4.9"/></svg></div>
+                  <div class="stat-corpo">
+                    <div class="stat-num" id="vgStatEmpresasAtivas">—</div>
+                    <div class="stat-label">Empresas ativas</div>
+                    <div class="stat-desc">Com acesso à plataforma</div>
+                  </div>
+                </div>
+                <div class="stat-card-novo stat-cor-azul">
+                  <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.4H5.4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l9 9a2 2 0 0 0 2.8 0l6.4-6.4a2 2 0 0 0 0-2.8l-9-9a2 2 0 0 0-1.6-.6z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+                  <div class="stat-corpo">
+                    <div class="stat-num" id="vgStatPlanoTeste">—</div>
+                    <div class="stat-label">Empresas no plano Teste</div>
+                    <div class="stat-desc">No plano de avaliação</div>
+                  </div>
+                </div>
+              </div>
+
+              <section class="painel-secao">
+                <div class="secao-cabecalho-rico">
+                  <div class="secao-titulo-com-icone">
+                    <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20V14"/></svg></span>
+                    <div>
+                      <h2>Novas empresas por mês</h2>
+                      <p class="secao-subtitulo">Quantidade de novas empresas registradas a cada mês</p>
+                    </div>
+                  </div>
+                  <div class="badge-periodo">
+                    <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
+                    <span>Últimos 12 meses</span>
+                    <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+                <div class="grafico-corpo">
+                  <div class="grafico-eixo-y" id="vgEixoY"></div>
+                  <div class="grafico-plot-scroll">
+                    <div class="grafico-plot-area" id="vgGraficoPlotArea">
+                      <div class="grafico-linhas" id="vgLinhas"></div>
+                      <div class="grafico-barras" id="vgGraficoMeses"></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="grid-duas-colunas">
+                <section class="painel-secao">
+                  <div class="secao-titulo-com-icone">
+                    <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 4"/></svg></span>
+                    <div>
+                      <h2>Situação das assinaturas</h2>
+                      <p class="secao-subtitulo">Distribuição das empresas por status de assinatura</p>
+                    </div>
+                  </div>
+                  <div id="vgDistribuicaoStatus" class="painel-analitico"></div>
+                </section>
+
+                <section class="painel-secao">
+                  <div class="secao-titulo-com-icone">
+                    <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/></svg></span>
+                    <div>
+                      <h2>Distribuição por plano</h2>
+                      <p class="secao-subtitulo">Quantidade de empresas em cada plano</p>
+                    </div>
+                  </div>
+                  <div id="vgDistribuicaoPlano" class="painel-analitico"></div>
+                </section>
+              </div>
+
+              <section class="painel-secao proximos-indicadores">
+                <div class="secao-titulo-com-icone">
+                  <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 9-9"/><path d="M14 7h7v7"/></svg></span>
+                  <div>
+                    <h2>Próximos indicadores</h2>
+                    <p class="secao-subtitulo">Dependem dos futuros módulos financeiro e de mensagens - ainda não implementados</p>
+                  </div>
+                </div>
+                <div class="proximos-grid">
+                  <div class="proximo-card">
+                    <div class="proximo-topo">
+                      <span class="proximo-icone"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 15c0 1 1 1.6 2.5 1.6s2.5-.7 2.5-1.7c0-2.4-5-1.2-5-3.6 0-1 1-1.7 2.5-1.7s2.5.6 2.5 1.6"/><line x1="12" y1="7.3" x2="12" y2="8.6"/><line x1="12" y1="15.4" x2="12" y2="16.7"/></svg></span>
+                      <span class="nav-badge">Em breve</span>
+                    </div>
+                    <div class="proximo-titulo">Valor recebido</div>
+                    <p class="proximo-desc">Total de valores recebidos</p>
+                  </div>
+                  <div class="proximo-card">
+                    <div class="proximo-topo">
+                      <span class="proximo-icone"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15.5,14"/></svg></span>
+                      <span class="nav-badge">Em breve</span>
+                    </div>
+                    <div class="proximo-titulo">Valores pendentes</div>
+                    <p class="proximo-desc">Valores em aberto / inadimplência</p>
+                  </div>
+                  <div class="proximo-card">
+                    <div class="proximo-topo">
+                      <span class="proximo-icone"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></span>
+                      <span class="nav-badge">Em breve</span>
+                    </div>
+                    <div class="proximo-titulo">Mensagens enviadas</div>
+                    <p class="proximo-desc">Total de mensagens na plataforma</p>
+                  </div>
+                  <div class="proximo-card">
+                    <div class="proximo-topo">
+                      <span class="proximo-icone"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18"/><circle cx="17" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+                      <span class="nav-badge">Em breve</span>
+                    </div>
+                    <div class="proximo-titulo">Custo das mensagens</div>
+                    <p class="proximo-desc">Total de custos com mensagens</p>
+                  </div>
+                </div>
+              </section>
+
+              <p id="vgGeradoEm" class="rodape-atualizacao"></p>
+            </div>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat-card stat-pendente"><div><div class="stat-num" id="statPendentes">—</div><div class="stat-label">Pendentes</div></div><div class="stat-icon">⏳</div></div>
-            <div class="stat-card stat-consumida"><div><div class="stat-num" id="statConsumidas">—</div><div class="stat-label">Consumidas</div></div><div class="stat-icon">✔</div></div>
-            <div class="stat-card stat-expirada"><div><div class="stat-num" id="statExpiradas">—</div><div class="stat-label">Expiradas</div></div><div class="stat-icon">◔</div></div>
-            <div class="stat-card stat-revogada"><div><div class="stat-num" id="statRevogadas">—</div><div class="stat-label">Revogadas</div></div><div class="stat-icon">⊘</div></div>
+          <div id="viewOnboarding" class="view hidden">
+            <div class="topbar">
+              <h1>Autorizações de acesso</h1>
+              <p>Controle de acesso para entrada de novas empresas</p>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card-novo stat-cor-laranja">
+                <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M7 21h10"/><path d="M7 3c0 6 5 6 5 9s-5 3-5 9"/><path d="M17 3c0 6-5 6-5 9s5 3 5 9"/></svg></div>
+                <div class="stat-corpo">
+                  <div class="stat-num" id="statPendentes">—</div>
+                  <div class="stat-label">Pendentes</div>
+                  <div class="stat-desc">Aguardando uso do acesso</div>
+                </div>
+              </div>
+              <div class="stat-card-novo stat-cor-verde">
+                <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+                <div class="stat-corpo">
+                  <div class="stat-num" id="statConsumidas">—</div>
+                  <div class="stat-label">Utilizadas</div>
+                  <div class="stat-desc">Empresa já criada com sucesso</div>
+                </div>
+              </div>
+              <div class="stat-card-novo stat-cor-azul">
+                <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="M9.7 14l4.6 4"/><path d="M14.3 14l-4.6 4"/></svg></div>
+                <div class="stat-corpo">
+                  <div class="stat-num" id="statExpiradas">—</div>
+                  <div class="stat-label">Expiradas</div>
+                  <div class="stat-desc">Prazo de 72 horas encerrado</div>
+                </div>
+              </div>
+              <div class="stat-card-novo stat-cor-vermelha">
+                <div class="stat-icone-box"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="7" y1="7" x2="17" y2="17"/></svg></div>
+                <div class="stat-corpo">
+                  <div class="stat-num" id="statRevogadas">—</div>
+                  <div class="stat-label">Revogadas</div>
+                  <div class="stat-desc">Acesso cancelado manualmente</div>
+                </div>
+              </div>
+            </div>
+
+            <section class="painel-secao">
+              <div class="secao-titulo-com-icone">
+                <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16.5 12.5l2 2 3.5-3.5"/></svg></span>
+                <div>
+                  <h2>Autorizar ou renovar acesso</h2>
+                  <p class="secao-subtitulo">Libere a criação de uma nova empresa para um e-mail específico</p>
+                </div>
+              </div>
+              <form id="autorizarForm" class="form-linha">
+                <div class="campo">
+                  <label for="autorizarEmail">E-mail a autorizar</label>
+                  <input id="autorizarEmail" type="email" required placeholder="pessoa@exemplo.com">
+                </div>
+                <button id="autorizarSubmitBtn" type="submit" class="btn btn-primary">Autorizar por 72 horas</button>
+              </form>
+              <p id="autorizarMensagem" class="mensagem hidden"></p>
+              <div class="aviso-caixa">
+                <span class="aviso-icone"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="7.5" r="0.6" fill="currentColor" stroke="none"/></svg></span>
+                <p>Autorizar aqui não envia nenhum e-mail. Depois de autorizar, envie o convite manualmente pelo Supabase (Authentication → Invite user), usando o mesmo e-mail. Envio automático fica para uma etapa futura.</p>
+              </div>
+            </section>
+
+            <section class="painel-secao">
+              <div class="secao-cabecalho-rico">
+                <div class="secao-titulo-com-icone">
+                  <span class="secao-icone"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span>
+                  <div>
+                    <h2>Histórico de autorizações</h2>
+                    <p class="secao-subtitulo">Todas as autorizações já criadas, com a situação atual de cada uma</p>
+                  </div>
+                </div>
+                <div id="filtros" class="filtros" role="group" aria-label="Filtrar por situação">
+                  <button type="button" class="filtro-btn" data-filtro="pendente">Pendente</button>
+                  <button type="button" class="filtro-btn" data-filtro="consumida">Utilizada</button>
+                  <button type="button" class="filtro-btn" data-filtro="expirada">Expirada</button>
+                  <button type="button" class="filtro-btn" data-filtro="revogada">Revogada</button>
+                  <button type="button" class="filtro-btn" data-filtro="todas">Todas</button>
+                </div>
+              </div>
+
+              <p id="acaoMensagem" class="mensagem hidden"></p>
+              <p id="listaCarregando" class="texto-secundario hidden">Carregando…</p>
+              <p id="listaErro" class="mensagem-erro hidden"></p>
+              <div id="listaVazia" class="estado-vazio hidden">
+                <span class="estado-vazio-icone"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 3h6l2-3h4"/><path d="M5 12l1.5-7h11L19 12"/><path d="M3 12v6a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-6"/></svg></span>
+                <p class="estado-vazio-titulo">Nenhuma autorização encontrada</p>
+                <p class="estado-vazio-desc">Não há registros para este filtro no momento.</p>
+              </div>
+
+              <div class="tabela-scroll">
+                <table id="listaTabela" class="tabela hidden">
+                  <colgroup>
+                    <col class="col-email">
+                    <col class="col-situacao">
+                    <col class="col-data">
+                    <col class="col-data">
+                    <col class="col-data">
+                    <col class="col-data">
+                    <col class="col-acao">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>E-mail</th>
+                      <th>Situação</th>
+                      <th>Autorizado</th>
+                      <th>Expira</th>
+                      <th>Utilizado</th>
+                      <th>Revogado</th>
+                      <th>Ação</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listaTabelaBody"></tbody>
+                </table>
+              </div>
+            </section>
           </div>
 
-          <section class="painel-secao">
-            <div class="secao-cabecalho">
-              <h2>Autorizar / renovar acesso por e-mail</h2>
-            </div>
-            <form id="autorizarForm" class="form-linha">
-              <div class="campo">
-                <label for="autorizarEmail">E-mail a autorizar</label>
-                <input id="autorizarEmail" type="email" required placeholder="pessoa@exemplo.com">
-              </div>
-              <button id="autorizarSubmitBtn" type="submit" class="btn btn-primary">Autorizar por 72 horas</button>
-            </form>
-            <p id="autorizarMensagem" class="mensagem hidden"></p>
-            <p class="aviso-discreto">ℹ Autorizar aqui não envia nenhum e-mail. Depois de autorizar, envie o convite manualmente pelo Supabase (Authentication → Invite user), usando o mesmo e-mail. Envio automático fica para o Incremento 2.3.</p>
-          </section>
-
-          <section class="painel-secao">
-            <div class="secao-cabecalho">
-              <h2>Autorizações de onboarding</h2>
-              <div id="filtros" class="filtros" role="group" aria-label="Filtrar por situação">
-                <button type="button" class="filtro-btn" data-filtro="pendente">Pendente</button>
-                <button type="button" class="filtro-btn" data-filtro="consumida">Consumida</button>
-                <button type="button" class="filtro-btn" data-filtro="expirada">Expirada</button>
-                <button type="button" class="filtro-btn" data-filtro="revogada">Revogada</button>
-                <button type="button" class="filtro-btn" data-filtro="todas">Todas</button>
-              </div>
-            </div>
-
-            <p id="acaoMensagem" class="mensagem hidden"></p>
-            <p id="listaCarregando" class="texto-secundario hidden">Carregando…</p>
-            <p id="listaErro" class="mensagem-erro hidden"></p>
-            <p id="listaVazia" class="texto-secundario hidden">Nenhuma autorização encontrada para este filtro.</p>
-
-            <div class="tabela-scroll">
-              <table id="listaTabela" class="tabela hidden">
-                <colgroup>
-                  <col class="col-email">
-                  <col class="col-situacao">
-                  <col class="col-data">
-                  <col class="col-data">
-                  <col class="col-data">
-                  <col class="col-data">
-                  <col class="col-acao">
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th>E-mail</th>
-                    <th>Situação</th>
-                    <th>Autorizado</th>
-                    <th>Expira</th>
-                    <th>Consumido</th>
-                    <th>Revogado</th>
-                    <th>Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="listaTabelaBody"></tbody>
-              </table>
-            </div>
-          </section>
         </div>
       </main>
     </div>
